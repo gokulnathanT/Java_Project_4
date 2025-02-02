@@ -1,5 +1,7 @@
 package org.example.Trip;
 
+import org.example.Budget.Budget;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -15,6 +17,8 @@ public class Trip {
     private LocalDate endDate;
     private String purpose;
     private ArrayList<String> activities;
+
+    private Budget tripBudget;
 
     public Trip(String tripName, String[] tripPLaces, LocalDate startDate, LocalDate endDate, int purpose, ArrayList<Integer> activities) {
         this.tripName = tripName;
@@ -99,14 +103,14 @@ public class Trip {
         put(3,"family-visit");
     }};
 
-    @Override
+
     public String toString() {
         return "Trip{" +
                 ", tripName='" + tripName + '\'' +
                 "activities=" + activities +
                 ", purpose='" + purpose + '\'' +
-                ", endDate=" + endDate +
                 ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 ", tripPLaces=" + Arrays.toString(tripPLaces) +
                 '}';
     }

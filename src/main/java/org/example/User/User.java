@@ -1,11 +1,15 @@
 package org.example.User;
 
+import org.example.Trip.Trip;
+
+import java.util.ArrayList;
+
 public class User {
     private int userID;
 
     int id=1;
     private String userName;
-
+    private ArrayList<Trip> userTrip;
     private long mobileNo;
 
     public int getUserID() {
