@@ -1,24 +1,14 @@
-package org.example.User;
+package org.example.Users;
 
 import org.example.Trip.Trip;
 
 import java.util.ArrayList;
 
 public class User {
-    private int userID;
-
-    int id=1;
     private String userName;
-    private ArrayList<Trip> userTrip;
+    private ArrayList<Trip> userTrip =new ArrayList<>();
     private long mobileNo;
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
 
     public String getUserName() {
         return userName;
@@ -37,9 +27,13 @@ public class User {
     }
 
     public User(String userName, long mobileNo) {
-        this.userID = id;
         this.userName = userName;
         this.mobileNo = mobileNo;
-        id++;
     }
+
+    public ArrayList<Trip> getUserTrip() {
+        return userTrip;
+    }
+
+
 }

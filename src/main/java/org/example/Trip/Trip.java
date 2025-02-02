@@ -17,7 +17,6 @@ public class Trip {
     private LocalDate endDate;
     private String purpose;
     private ArrayList<String> activities;
-
     private Budget tripBudget;
 
     public Trip(String tripName, String[] tripPLaces, LocalDate startDate, LocalDate endDate, int purpose, ArrayList<Integer> activities) {
@@ -83,6 +82,13 @@ public class Trip {
         this.activities = activities;
     }
 
+    public Budget getTripBudget() {
+        return tripBudget;
+    }
+
+    public void setTripBudget(Budget tripBudget) {
+        this.tripBudget = tripBudget;
+    }
 
     public HashMap<Integer, String> defaultActivities = new HashMap() {{
         put(1, "Hiking");
