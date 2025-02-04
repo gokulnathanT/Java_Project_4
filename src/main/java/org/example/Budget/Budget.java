@@ -1,5 +1,7 @@
 package org.example.Budget;
 
+import java.util.HashMap;
+
 public class Budget {
      private int accommodationBudget;
      private int transportBudget;

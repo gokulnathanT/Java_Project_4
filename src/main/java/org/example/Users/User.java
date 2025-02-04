@@ -35,5 +35,12 @@ public class User {
         return userTrip;
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", userTrip=" + userTrip +
+                ", mobileNo=" + mobileNo +
+                '}';
+    }
 }

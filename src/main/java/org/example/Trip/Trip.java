@@ -1,12 +1,14 @@
 package org.example.Trip;
 
 import org.example.Budget.Budget;
+import org.example.Budget.EstimatedBudget;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.time.format.DateTimeFormatter;
 
 public class Trip {
@@ -18,7 +20,9 @@ public class Trip {
     private String purpose;
     private ArrayList<String> activities;
     private Budget tripBudget;
+    private int days;
 
+    private String summary;
     public Trip(String tripName, String[] tripPLaces, LocalDate startDate, LocalDate endDate, int purpose, ArrayList<Integer> activities) {
         this.tripName = tripName;
         this.tripPLaces = tripPLaces;
@@ -31,9 +35,8 @@ public class Trip {
             act.add(defaultActivities.get(i));
         }
        this.activities=act;
-
+       this.days=(int)ChronoUnit.DAYS.between(startDate,endDate);
     }
-
     public String getTripName() {
         return tripName;
     }
@@ -90,6 +93,14 @@ public class Trip {
         this.tripBudget = tripBudget;
     }
 
+    public int getDays() {
+        return days;
+    }
+
+    public void setDays(int days) {
+        this.days = days;
+    }
+
     public HashMap<Integer, String> defaultActivities = new HashMap() {{
         put(1, "Hiking");
         put(2, "Snorkeling");
@@ -117,7 +128,36 @@ public class Trip {
                 ", purpose='" + purpose + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
+                ", Days=" + days +
                 ", tripPLaces=" + Arrays.toString(tripPLaces) +
                 '}';
+    }
+
+    public String generateSummary(Trip trip, Budget budget, EstimatedBudget estimatedBudget) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        String tripDetails = "📌 Trip Summary: " + trip.getTripName() + "\n" +
+                "------------------------------------------------\n" +
+                "📅 Duration: " + trip.getStartDate().format(formatter) + " to " +
+                trip.getEndDate().format(formatter) + " (" + trip.getDays() + " days)\n" +
+                "🌍 Places to Visit: " + String.join(", ", trip.getTripPLaces()) + "\n" +
+                "🎯 Purpose: " + trip.getPurpose() + "\n" +
+                "📝 Activities Planned: " + String.join(", ", trip.getActivities()) + "\n\n";
+        String budgetBreakdown = "💰 Budget Breakdown:\n" +
+                "🏨 Accommodation: $" + budget.getAccommodationBudget() + "\n" +
+                "🚗 Transport: $" + budget.getTransportBudget() + "\n" +
+                "🍽️ Food: $" + budget.getFood() + "\n" +
+                "🎭 Miscellaneous: $" + budget.getMiscellaneous() + "\n" +
+                "💵 Total Budget: $" + budget.getTotal() + "\n\n";
+        String estimatedBreakdown = "📊 Estimated Cost Analysis:\n" +
+                "🏨 Accommodation: $" + ((estimatedBudget.getRoom()*trip.getDays()*trip.getTripPLaces().length)+ estimatedBudget.getConvenienceFee()) + "\n" +
+                "🚗 Transport: $" + estimatedBudget.getTransport()* trip.getTripPLaces().length + "\n" +
+                "🍽️ Food: $" + estimatedBudget.getFoodPerMeal()*trip.getDays()*4 + "\n" +
+                "🎭 Miscellaneous: $" + estimatedBudget.getMiscellaneous()*trip.getDays()+ "\n" +
+                "💵 Estimated Total: $" + estimatedBudget.estimateCost(budget,trip) + "\n\n";
+
+
+
+
+        return tripDetails + budgetBreakdown + estimatedBreakdown + "✅ Budget Status: \n------------------------------------------------";
     }
 }
